@@ -184,7 +184,12 @@
 
         var q = getQueryStringParams("q")
         if (q) {
-            input.value = decodeURI(getQueryStringParams("q"))
+            var lt = /</g,
+                gt = />/g,
+                ap = /'/g,
+                ic = /"/g;
+            q = q.replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&#39;").replace(ic, "&#34;");
+            input.value = decodeURI(q)
             input.dispatchEvent(new Event("input"))
         }
     });
